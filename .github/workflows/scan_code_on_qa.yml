@@ -13,6 +13,7 @@ on:
       - 'force-app/**'
 
 # Jobs to be executed
+jobs:
   validate-branch-against-qa-org:
     runs-on: ubuntu-latest
     steps:
@@ -43,9 +44,10 @@ on:
 
       # Generate Delta packages based on las 10 commits
       - name: 'Create delta packages for new, modified or deleted metadata'
+      # This command only Analyze the difference between HEAD (latest commit) and HEAD^ (previous commit), and output the result in the current folder.
         run: |
-          sfdx sgd:source:delta --to "HEAD" --from "HEAD^~10" --output .
-          echo "--- package.xml generated with added and modified metadata from last 10 commits---"
+          sfdx sgd:source:delta --to "HEAD" --from "HEAD^" --output .
+          echo "--- package.xml generated with added and modified metadata from last commit---"
           cat package/package.xml
 
       # Run validation command based on package.xml
