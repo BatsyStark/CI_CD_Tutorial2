@@ -1,16 +1,16 @@
 # Unique name for this worklow
 name: 'Validate PR open to QA'
 
-# Definition when the workflow should be run
+# Definition when the workflow should run
 on:
   pull_request:
     types: [opened, synchronize]
-    branches: [release-branch*]
+    branches: [ release-branch* ]
     paths:
       - 'force-app/**'
 
 jobs:
-  validate-PR-open-against-qa:
+  validate-PR-on-qa-org:
     runs-on: ubuntu-latest
     steps:
       - name: 'Read PR Body'
