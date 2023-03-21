@@ -44,6 +44,12 @@ jobs:
         run: |
           echo ${{ secrets.ORG_QA_URL}} > ./ORG_QA_URL.txt
 
+      # Checkout the source code
+      - name: 'Checkout source code'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       # Authenticate to ORG
       - name: 'Authenticate to QA org'
         run: sfdx auth:sfdxurl:store -f ./ORG_QA_URL.txt -s -a integration
