@@ -5,7 +5,7 @@ name: 'Validate PR open to QA'
 on:
   pull_request:
     types: [opened, synchronize]
-    branches: [ release-branch* ]
+    branches: [ release-branch** ]
     paths:
       - 'force-app/**'
 
