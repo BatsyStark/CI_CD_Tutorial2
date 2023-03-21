@@ -38,17 +38,17 @@ jobs:
           sudo apt-get update
           sudo apt install default-jdk
 
-      # Store secret of the org
-      - name: 'Populate auth file'
-        shell: bash
-        run: |
-          echo ${{ secrets.ORG_QA_URL}} > ./ORG_QA_URL.txt
-
       # Checkout the source code
       - name: 'Checkout source code'
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      # Store secret of the org
+      - name: 'Populate auth file'
+        shell: bash
+        run: |
+          echo ${{ secrets.ORG_QA_URL}} > ./ORG_QA_URL.txt
 
       # Authenticate to ORG
       - name: 'Authenticate to QA org'
