@@ -7,6 +7,7 @@ on:
     types: 
       - opened
       - synchronize
+      - edited
     branches:
     - 'release-branch*'
     paths:
@@ -27,7 +28,7 @@ jobs:
           PR_BODY: ${{github.event.pull_request.body}}
         run: |
           echo $PR_BODY > ./pr_body.txt
-          node ./parsePR.js              
+          node ././parsePR.js
           TESTS=$(cat testsToRun.txt)
           echo "APEX_TESTS=$TESTS" >> $GITHUB_ENV
 
