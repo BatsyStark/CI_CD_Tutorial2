@@ -33,9 +33,6 @@ jobs:
         env:
           PR_BODY: ${{github.event.pull_request.body}}
         run: |
-          rm -rf node_modules package-lock.json
-          npm install
-          npm start
           echo $PR_BODY > ./pr_body.txt
           node ././parsePR.js
           TESTS=$(cat testsToRun.txt)
