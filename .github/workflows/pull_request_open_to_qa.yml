@@ -7,6 +7,7 @@ on:
     types: 
       - opened
       - synchronize
+      - edited
     branches:
     - 'release-branch*'
     paths:
@@ -21,13 +22,19 @@ jobs:
         with:
           node-version: '14'
 
+      # Checkout the source code
+      - name: 'Checkout source code'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       # Read the PR body
       - name: 'Read PR Body'
         env:
           PR_BODY: ${{github.event.pull_request.body}}
         run: |
           echo $PR_BODY > ./pr_body.txt
-          node ./parsePR.js              
+          node ././parsePR.js
           TESTS=$(cat testsToRun.txt)
           echo "APEX_TESTS=$TESTS" >> $GITHUB_ENV
 
@@ -51,12 +58,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt install default-jdk
-
-      # Checkout the source code
-      - name: 'Checkout source code'
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       # Store secret of the org
       - name: 'Populate auth file'
