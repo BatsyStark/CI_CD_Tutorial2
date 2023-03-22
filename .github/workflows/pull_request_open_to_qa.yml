@@ -16,6 +16,12 @@ jobs:
   validate-pr-on-qa-org:
     runs-on: ubuntu-latest
     steps:
+      # Now we install nodejs in the VM, and specify version 14
+      - uses: actions/setup-node@v3
+      with:
+      node-version: '14'
+
+      # Read the PR body
       - name: 'Read PR Body'
         env:
           PR_BODY: ${{github.event.pull_request.body}}
