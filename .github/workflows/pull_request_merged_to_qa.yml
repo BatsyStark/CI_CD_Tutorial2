@@ -1,5 +1,5 @@
 # Unique name for this worklow
-name: 'Validate PR open to QA'
+name: 'Validate PR merged to QA'
 
 # Definition when the workflow should run
 on:
@@ -12,10 +12,16 @@ on:
       - force-app/**
 
 jobs:
-  if_merged:
+  validate-pr-merged-to-qa-org:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
+      # Now we install nodejs in the VM, and specify version 14
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      # Read the PR body
       - name: 'Read PR Body'
         env:
           PR_BODY: ${{github.event.pull_request.body}}
